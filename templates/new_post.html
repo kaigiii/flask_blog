@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}New Post - Flask Blog{% endblock %}
+{% block content %}
+  <h2>New Post</h2>
+  <form method="post">
+    <label>Title</label>
+    <input type="text" name="title" value="{{ title or '' }}" required />
+
+    <label>Content</label>
+    <textarea name="content" rows="8" required>{{ content or '' }}</textarea>
+
+    <button type="submit">Create</button>
+  </form>
+{% endblock %}

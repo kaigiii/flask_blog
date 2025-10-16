@@ -1,11 +1,16 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Flask Blog</title>
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-    <p>This is the index template.</p>
-  </body>
-</html>
+{% extends 'base.html' %}
+{% block title %}All Posts - Flask Blog{% endblock %}
+{% block content %}
+  {% if not posts %}
+    <p>No posts yet.</p>
+  {% else %}
+    <ul>
+      {% for post in posts %}
+        <li>
+          <a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a>
+          <small>by {{ post.author }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

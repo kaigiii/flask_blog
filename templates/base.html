@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Flask Blog{% endblock %}</title>
+    <style>
+      body { max-width: 800px; margin: 2rem auto; font-family: -apple-system, system-ui, sans-serif; }
+      header, nav, main { margin-bottom: 1rem; }
+      .flash { padding: .75rem 1rem; border-radius: 6px; margin: .5rem 0; }
+      .flash.success { background: #e8fff1; border: 1px solid #a8e6c1; }
+      .flash.error { background: #ffe8e8; border: 1px solid #f3b1b1; }
+      a.button, button { display: inline-block; padding: .5rem .85rem; border: 1px solid #ccc; border-radius: 6px; text-decoration: none; background: #fafafa; }
+      form label { display: block; margin-top: .5rem; }
+      input[type=text], input[type=password], textarea { width: 100%; padding: .5rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1><a href="{{ url_for('list_posts') }}" style="text-decoration:none; color:inherit;">Flask Blog</a></h1>
+      <nav>
+        {% if current_user.is_authenticated %}
+          Hi, {{ current_user.username }} |
+          <a href="{{ url_for('new_post') }}" class="button">New Post</a> |
+          <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}">Login</a> |
+          <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+      </nav>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
