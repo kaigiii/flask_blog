@@ -4,13 +4,13 @@
   {% if not posts %}
     <p>No posts yet.</p>
   {% else %}
-    <ul>
+    <div class="grid">
       {% for post in posts %}
-        <li>
-          <a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a>
-          <small>by {{ post.author }}</small>
-        </li>
+        <article class="card">
+          <h3><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></h3>
+          <div class="meta">by {{ post.author }}</div>
+        </article>
       {% endfor %}
-    </ul>
+    </div>
   {% endif %}
 {% endblock %}

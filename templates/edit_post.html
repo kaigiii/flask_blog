@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
 {% block title %}Edit Post - Flask Blog{% endblock %}
 {% block content %}
-  <h2>Edit Post</h2>
-  <form method="post">
-    <label>Title</label>
-    <input type="text" name="title" value="{{ post.title }}" required />
+  <section class="form-card">
+    <h2>Edit Post</h2>
+    <form method="post">
+      <label>Title</label>
+      <input type="text" name="title" value="{{ post.title }}" required />
 
-    <label>Content</label>
-    <textarea name="content" rows="8" required>{{ post.content }}</textarea>
+      <label>Content</label>
+      <textarea name="content" rows="8" required>{{ post.content }}</textarea>
 
-    <button type="submit">Save</button>
-  </form>
+      <div class="actions" style="margin-top: .75rem;">
+        <button type="submit" class="button primary">Save</button>
+        <a href="{{ url_for('post_detail', post_id=post.id) }}" class="button">Cancel</a>
+      </div>
+    </form>
+  </section>
 {% endblock %}
