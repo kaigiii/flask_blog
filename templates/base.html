@@ -4,14 +4,90 @@
     <meta charset="utf-8" />
     <title>{% block title %}Flask Blog{% endblock %}</title>
     <style>
-      body { max-width: 800px; margin: 2rem auto; font-family: -apple-system, system-ui, sans-serif; }
+      :root {
+        --bg: #0b0b0f;
+        --panel: #11131a;
+        --panel-2: #0f1218;
+        --text: #e6e6e6;
+        --muted: #a6a6a6;
+        --border: #2a2d3a;
+        --accent: #7c5cff; /* violet */
+        --accent-2: #15b8ff; /* cyan */
+        --success-bg: #0e1a14;
+        --success-br: #1f8a5b;
+        --error-bg: #1a0e10;
+        --error-br: #b64b5a;
+        --shadow: 0 10px 30px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.02);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root { color-scheme: dark; }
+      }
+
+      html, body { height: 100%; }
+      body {
+        max-width: 900px;
+        margin: 2rem auto;
+        font-family: -apple-system, system-ui, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif;
+        background: radial-gradient(1200px 800px at 10% -10%, rgba(124,92,255,.06), transparent 40%),
+                    radial-gradient(1000px 700px at 110% 10%, rgba(21,184,255,.06), transparent 40%),
+                    var(--bg);
+        color: var(--text);
+      }
+
       header, nav, main { margin-bottom: 1rem; }
-      .flash { padding: .75rem 1rem; border-radius: 6px; margin: .5rem 0; }
-      .flash.success { background: #e8fff1; border: 1px solid #a8e6c1; }
-      .flash.error { background: #ffe8e8; border: 1px solid #f3b1b1; }
-      a.button, button { display: inline-block; padding: .5rem .85rem; border: 1px solid #ccc; border-radius: 6px; text-decoration: none; background: #fafafa; }
-      form label { display: block; margin-top: .5rem; }
-      input[type=text], input[type=password], textarea { width: 100%; padding: .5rem; }
+      header {
+        background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+        padding: 1rem 1.25rem;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      h1, h2, h3 { color: #fafafa; margin: 0 0 .5rem; }
+      a { color: var(--accent-2); text-decoration: none; }
+      a:hover { color: #5fd6ff; text-decoration: underline; text-underline-offset: 2px; }
+
+      nav a { color: var(--text); }
+      nav a:hover { color: var(--accent-2); text-decoration: none; }
+
+      .button, button {
+        display: inline-block;
+        padding: .55rem .95rem;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: linear-gradient(180deg, #171a22, #11131a);
+        color: var(--text);
+        box-shadow: var(--shadow);
+        transition: transform .06s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      }
+      .button:hover, button:hover { transform: translateY(-1px); border-color: #3a3f52; }
+      .button:active, button:active { transform: translateY(0); }
+
+      .button.primary {
+        border-color: #3e2e8a;
+        background: linear-gradient(180deg, rgba(124,92,255,.22), rgba(124,92,255,.12));
+        color: #eae7ff;
+      }
+      .button.primary:hover { border-color: #5b48da; }
+
+      .flash { padding: .85rem 1rem; border-radius: 10px; margin: .6rem 0; border: 1px solid var(--border); background: var(--panel); }
+      .flash.success { background: var(--success-bg); border-color: var(--success-br); }
+      .flash.error { background: var(--error-bg); border-color: var(--error-br); }
+
+      main { padding: 1rem 1.25rem; background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+
+      form label { display: block; margin-top: .75rem; color: var(--muted); font-size: .95rem; }
+      input[type=text], input[type=password], textarea {
+        width: 100%; padding: .65rem .75rem; margin-top: .35rem; color: var(--text);
+        background: #0d0f15; border: 1px solid var(--border); border-radius: 10px;
+        outline: none; transition: border-color .15s ease, box-shadow .15s ease;
+      }
+      textarea { resize: vertical; }
+      input:focus, textarea:focus { border-color: #495077; box-shadow: 0 0 0 3px rgba(124,92,255,.18); }
+
+      ul { padding-left: 1.1rem; }
+      li { margin: .4rem 0; }
     </style>
   </head>
   <body>
